@@ -7,6 +7,7 @@
 #include <cmath>
 #include <map>
 #include <vector>
+#include <memory>
 
 using namespace cv;
 
@@ -150,7 +151,7 @@ public:
 
     SinPrinter(int radius_x, int radius_y, 
                       int density, bool black, float intensivity,
-                      int start_, int shift_, int amplitude_, float period_, bool horizontal_
+                      int start_, int shift_, int amplitude_, float period_, bool horizontal_,
                       bool use_memory = false) : 
                         Printer(radius_x, radius_y, density, black, intensivity, use_memory) {
         start = start_;
@@ -183,15 +184,22 @@ class PrinterStack {
 public:
     PrinterStack() {}
 
-    void AddLayer(Printer& printer) {
-        layers.push_back(&printer);
+    PrinterStack(const PrinterStack&) = delete;
+
+    void AddLayer(std::unique_ptr<Printer> printer) {
+        layers.push_back(std::move(printer));
     }
 
-    void ProcessImage(Mat& image) {
-        for (auto i : layers) {
+    void ProcessImage(Mat& image) const {
+        for (auto&& i : layers) {
             i->ModifyImage(image);
         }
     }
+
+    void Clear() {
+        layers.clear();
+    }
+
 private:
-    std::vector<Printer*> layers;
+    std::vector<std::unique_ptr<Printer>> layers;
 };

@@ -4,7 +4,7 @@ rm -r build
 
 cmake -S. -Bbuild
 cd build
-make
+make Generate
 ./Generate
 
 mv first_m.jpg ../example/imgs_modified/
