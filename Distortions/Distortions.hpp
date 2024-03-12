@@ -83,11 +83,11 @@ protected:
     std::map<std::pair<int, int>, int> memory;
 };
 
-class SolidLinesPrinter : public Printer {
+class LinesPrinter : public Printer {
 public:
-    SolidLinesPrinter() = delete;
+    LinesPrinter() = delete;
 
-    SolidLinesPrinter(int radius_x, int radius_y, 
+    LinesPrinter(int radius_x, int radius_y, 
                       int density, bool black, float intensivity, 
                       int start_, int end_, bool horizontal_,
                       bool use_memory = false) : 
@@ -150,17 +150,21 @@ public:
 
     SinPrinter(int radius_x, int radius_y, 
                       int density, bool black, float intensivity,
-                      int start_, int shift_, int amplitude_, int period_,
+                      int start_, int shift_, int amplitude_, float period_, bool horizontal_
                       bool use_memory = false) : 
                         Printer(radius_x, radius_y, density, black, intensivity, use_memory) {
         start = start_;
         shift = shift_;
         amplitude = amplitude_;
         period = period_;
+        horizontal = horizontal_;
     }
 
 private:
     int changePixel(int x, int y) {
+        if (horizontal) {
+            std::swap(x, y);
+        }
         if ((y > start) && (std::abs(sin(static_cast<float>(x - shift) / period)) * amplitude > y - start) && (std::rand() % 100 < density)) {
             return new_intensivity;
         } else {
@@ -171,7 +175,8 @@ private:
     int start;
     int shift;
     int amplitude;
-    int period;
+    float period;
+    bool horizontal;
 };
 
 class PrinterStack {
