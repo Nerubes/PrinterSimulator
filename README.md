@@ -40,6 +40,10 @@
 - int radius_a : радиус оси элипса по оси X
 - int radius_b : радиус оси элипса по оси Y
 
+Принадлежность пикселя области определяется по формуле :
+
+$$ ({(x - point_x) \over radius_a})^2 + ({(y - point_y) \over radius_b})^2 < 1 $$
+
 3) SinPrinter(radius_x, radius_y, density, black, intensivity, start, shift, amplitude, period, horizontal, use_memory) - класс для генерации синусоподобных зашумлений :
 
 - int start : смещение по значению (определяется из hotizontal)
@@ -47,6 +51,12 @@
 - int amplitude : амплитуда синуса в пикселях
 - float period : параметр отвечающий за период синуса (при увеличении период увеличивается)
 - bool horizontal : флаг отображающий горизонтальность или вертикальность изменений
+
+Принадлежность пикселя области определяется по формуле :
+
+$$ |{sin(x - shift) \over period}| * amplitude > y - start $$ 
+
+(для horizontal=false)
 
 4) PrinterStack() - класс для объединения нескольких шумов и применении их одновременно :
 
