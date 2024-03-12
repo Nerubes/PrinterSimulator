@@ -29,14 +29,12 @@
 - ModifyImage(Mat& image) : метод который модифицирует картинку image в соответствии со входными параметрми.
 1) SolidLinesPrinter(radius_x, radius_y, density, black, intensivity, start, end, horizontal) - класс для генерации прямых линий с дефектом :
 
-Входные параметры :
 - int start : начало полосы изменений (ось зависит от horizontal)
 - int end : конец полосы изменений (ось зависит от horizontal)
 - bool horizontal : флаг обозначающий горизонтальность или вертикальность линии изменения
 
 2) BlobPrinter(radius_x, radius_y, density, black, intensivity, point_x, point_y, radius_a, radius_b, use_memory) - класс для генерации клякс (представлены элипсами) :
 
-Входные параметры :
 - int point_x : местоположение кляксы по X
 - int point_y : местоположение кляксы по Y
 - int radius_a : радиус оси элипса по оси X
@@ -44,7 +42,6 @@
 
 3) SinPrinter(radius_x, radius_y, density, black, intensivity, start, shift, amplitude, period, horizontal, use_memory) - класс для генерации синусоподобных зашумлений :
 
-Входные данные :
 - int start : смещение по значению (определяется из hotizontal)
 - int shift : смещение по фазе (определяется из horizontal)
 - int amplitude : амплитуда синуса в пикселях
