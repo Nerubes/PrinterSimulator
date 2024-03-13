@@ -64,6 +64,10 @@ int main(int argc, char *argv[]) {
             bool black = parsed[4] == "0" ? false : true;
             float intensivity = std::stof(parsed[5]);
             if (parsed[0] == "Line") {
+                if (parsed.size() < 9) {
+                    std::cout << "Warning : " << line << "  //Doesn't satisfy format\n";
+                    continue;
+                }
                 int start = std::stoi(parsed[6]);
                 int end = std::stoi(parsed[7]);
                 int horizontal = parsed[8] ==  "0" ? false : true;
@@ -75,6 +79,10 @@ int main(int argc, char *argv[]) {
                 stack.AddLayer(std::move(p));
             }
             else if (parsed[0] == "Blob") {
+                if (parsed.size() < 10) {
+                    std::cout << "Warning : " << line << "  //Doesn't satisfy format\n";
+                    continue;
+                }
                 int point_x = std::stoi(parsed[6]);
                 int point_y = std::stoi(parsed[7]);
                 int radius_a = std::stoi(parsed[8]);
@@ -87,6 +95,10 @@ int main(int argc, char *argv[]) {
                 stack.AddLayer(std::move(p));
             }
             else if (parsed[0] == "Sin") {
+                if (parsed.size() < 11) {
+                    std::cout << "Warning : " << line << "  //Doesn't satisfy format\n";
+                    continue;
+                }
                 int start = std::stoi(parsed[6]);
                 int shift = std::stoi(parsed[7]);
                 int amplitude = std::stoi(parsed[8]);
